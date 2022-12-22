@@ -1,15 +1,16 @@
 #include <stdio.h>
 
-void ToW(int n, char src, char dest, char aux)
+int ToW(int n, char src, char dest, char aux, int count)
 {
     if (n == 0)
     {
-        return;
+        return count;
     }
 
-    ToW(n - 1, src, aux, dest);
+    count = ToW(n - 1, src, aux, dest, count);
     printf("Move disk %d from rod %c to rod %c\n", n, src, dest);
-    ToW(n - 1, aux, dest, src);
+    count++;
+    count = ToW(n - 1, aux, dest, src, count);
 }
 
 int main()
@@ -22,5 +23,8 @@ int main()
     char dest = 'C';
     char aux = 'B';
 
-    ToW(n, src, dest, aux);
+    int count = 0;
+    count = ToW(n, src, dest, aux, count);
+
+    printf("Total Movements: %d", count);
 }
